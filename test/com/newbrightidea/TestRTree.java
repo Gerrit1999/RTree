@@ -1,10 +1,10 @@
-package com.newbrightidea.util;
+package com.newbrightidea;
+
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.junit.jupiter.api.Test;
 
 public class TestRTree {
     private static final float[] ZEROES = {0.0f, 0.0f};

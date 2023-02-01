@@ -1,4 +1,4 @@
-package com.newbrightidea.util;
+package com.newbrightidea;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -159,7 +159,6 @@ public class RTree<T> {
         ListIterator<Node> li = l.children.listIterator();
         T removed = null;
         while (li.hasNext()) {
-            @SuppressWarnings("unchecked")
             Entry e = (Entry) li.next();
             if (e.entry.equals(entry)) {
                 removed = e.entry;
@@ -234,7 +233,6 @@ public class RTree<T> {
             tighten(root);
         }
         for (Node ne : q) {
-            @SuppressWarnings("unchecked")
             Entry e = (Entry) ne;
             insert(e.coords, e.dimensions, e.entry);
         }
@@ -288,7 +286,7 @@ public class RTree<T> {
         float[] coordBuf = new float[numDims];
         float[] dimBuf = new float[numDims];
         Queue<Node> toVisit = new LinkedList<>();
-        Map<Node,Integer> nodeDepths = new HashMap<>();
+        Map<Node, Integer> nodeDepths = new HashMap<>();
         nodeDepths.put(root, 0);
         toVisit.add(root);
         while (!toVisit.isEmpty()) {
@@ -299,7 +297,7 @@ public class RTree<T> {
             System.arraycopy(currentNode.coords, 0, coordBuf, 0, numDims);
             System.arraycopy(currentNode.dimensions, 0, dimBuf, 0, numDims);
             if (currentNode instanceof RTree.Entry) {
-                nv.visit(nodeDepths.get(currentNode), coordBuf, dimBuf, ((Entry)currentNode).entry);
+                nv.visit(nodeDepths.get(currentNode), coordBuf, dimBuf, ((Entry) currentNode).entry);
             } else {
                 nv.visit(nodeDepths.get(currentNode), coordBuf, dimBuf, null);
             }
@@ -349,7 +347,7 @@ public class RTree<T> {
         if (nn[1].parent != null) {
             nn[1].parent.children.add(nn[1]);
         }
-        LinkedList<Node> cc = new LinkedList<Node>(n.children);
+        LinkedList<Node> cc = new LinkedList<>(n.children);
         n.children.clear();
         Node[] ss = seedPicker == SeedPicker.LINEAR ? lPickSeeds(cc) : qPickSeeds(cc);
         nn[0].children.add(ss[0]);
@@ -588,8 +586,8 @@ public class RTree<T> {
 
     private float getArea(float[] dimensions) {
         float area = 1.0f;
-        for (int i = 0; i < dimensions.length; i++) {
-            area *= dimensions[i];
+        for (float dimension : dimensions) {
+            area *= dimension;
         }
         return area;
     }
